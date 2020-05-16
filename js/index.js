@@ -3,14 +3,14 @@ function Game() {
   this.answerIsShown = false
 
   this.updateView = () => {
-    var questions = document
+    const questions = document
       .querySelectorAll(".question.visible")
 
-    for (i = 0; i < questions.length; i++) {
+    for (let i = 0; i < questions.length; i++) {
       questions[i].classList.remove('visible')
     }
       
-    var currentQuestion = document
+    const currentQuestion = document
       .querySelector(`.question-${ this.currentQuestion }`)
 
     currentQuestion.classList.add('visible')
@@ -25,14 +25,14 @@ function Game() {
     }
   }
 
-  this.goOn = () => {
-    if(this.answerIsShown) {
-      this.answerIsShown = false
-      this.currentQuestion += 1
-    }
-    else {
-      this.answerIsShown = true
-    }
+  this.showNextQuestion = () => {
+    this.answerIsShown = false
+    this.currentQuestion += 1
+    this.updateView()
+  }
+
+  this.showAnswer = () => {
+    this.answerIsShown = true
     this.updateView()
   }
 }
@@ -42,12 +42,14 @@ window.addEventListener('load', function () {
   game = new Game()
   game.updateView()
 
-  document.querySelectorAll('.option, .next').forEach(e => {
-    e.onclick = () => {
-      game.goOn()
+  document.querySelector('#game').onclick = (event) => {
+    const classList = event.target.classList
+
+    if(classList.contains('option')) {
+      game.showAnswer()
     }
-  })
-  //document.querySelectorAll('.next').onclick = () => {
-    //game.goOn()
-  //}
+    else if(classList.contains('next')) {
+      game.showNextQuestion()
+    }
+  }
 })

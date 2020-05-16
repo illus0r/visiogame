@@ -10,10 +10,8 @@ body {
     &.visible {
       display: block;
     }
-    .option{
-      img {
-        width: 256px;
-      }
+    img.option {
+      width: 256px;
     }
     .answer{
       display: none;
