@@ -8,15 +8,16 @@ layout: game
     <div class="title">
       {{ q.ru_title }}
     </div>
-    <div class="images">
+    <div class="answerSet">
       <a href="#">
-        <img src="{{ q.img_1 }}" class="option option-1" />
+        <img src="{{ q.img_true }}" class="option option-true" />
       </a>
       <a href="#" >
-        <img src="{{ q.img_2 }}" class="option option-2" />
+        <img src="{{ q.img_false }}" class="option option-false" />
       </a>
     </div>
     <div class="answer">
+      <div class="explanation-title">{{ q.ru_explanation_title }}</div>
       <div class="explanation">{{ q.ru_explanation }}</div>
       <button class="next">NEXT</button>
     </div>
