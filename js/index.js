@@ -3,12 +3,12 @@ function Game() {
   this.answerIsShown = false
 
   this.shuffleAnswers = () => {
-    const answerSets = document
-      .querySelectorAll("#game .answerSet")
+    const optionSets = document
+      .querySelectorAll("#game .optionSet")
 
-    answerSets.forEach( answerSet => {
+    optionSets.forEach( optionSet => {
       if(Math.random() < 0.5) {
-        answerSet.appendChild(answerSet.firstElementChild)
+        optionSet.appendChild(optionSet.firstElementChild)
       }
     })
   }
