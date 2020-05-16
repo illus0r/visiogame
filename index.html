@@ -1,0 +1,25 @@
+---
+layout: game
+---
+
+{% assign index = 0 %}
+{% for q in site.questions %}
+  <div class="question question-{{ index }}">
+    <div class="title">
+      {{ q.ru_title }}
+    </div>
+    <div class="images">
+      <a href="#" class="option option-1">
+        <img src="{{ q.img_1 }}" />
+      </a>
+      <a href="#" class="option option-2">
+        <img src="{{ q.img_2 }}" />
+      </a>
+    </div>
+    <div class="answer">
+      <div class="explanation">{{ q.ru_explanation }}</div>
+      <button class="next">NEXT</button>
+    </div>
+  </div>
+  {% assign index = index | plus: 1 %}
+{% endfor %}

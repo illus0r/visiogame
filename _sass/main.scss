@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700');
+
+body {
+  font-family: "comic sans" "ms comic sans";
+}
+
+#game {
+  .question {
+    display: none;
+    &.visible {
+      display: block;
+    }
+    .option{
+      img {
+        width: 256px;
+      }
+    }
+    .answer{
+      display: none;
+      &.visible {
+        display: block;
+      }
+    }
+  }
+}
