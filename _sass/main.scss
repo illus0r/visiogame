@@ -5,19 +5,28 @@ body {
 }
 
 #game {
+	.visible {
+		display: block !important;
+	}
   .question {
     display: none;
-    &.visible {
-      display: block;
-    }
     img.option {
       width: 256px;
     }
     .answer{
       display: none;
-      &.visible {
-        display: block;
-      }
+			.explanation{
+				display: none;
+				&.correct {
+					color: green;
+				}
+				&.wrong {
+					color: red;
+				}
+			}
     }
   }
+	#result {
+		display: none;
+	}
 }
