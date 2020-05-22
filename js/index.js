@@ -19,6 +19,19 @@ function Game() {
 		result.classList.add('visible')
 	}
 
+	this.showProgress = () => {
+		const progress = document.querySelector(".progress")
+		progress.innerHTML = ''
+		let index = 0
+		for (q of this.questionsCorrectness) {
+			progress.innerHTML += `<div class='${ q? 'correct' : 'wrong' }'></div>`
+			index ++
+		}
+		for (; index < this.questionCount; index ++) {
+			progress.innerHTML += `<div class='empty'></div>`
+		}
+	}
+
   this.shuffleAnswers = () => {
     const optionSets = document
       .querySelectorAll("#game .optionSet")
@@ -31,6 +44,8 @@ function Game() {
   }
 
   this.updateView = () => {
+		this.showProgress()
+		
     const questions = document
       .querySelectorAll("#game .question.visible")
 

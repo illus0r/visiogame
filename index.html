@@ -2,12 +2,14 @@
 layout: game
 ---
 
+<div class="progress"><div class="correct"></div></div>
 {% assign index = 0 %}
 {% for q in site.questions %}
   <div class="question question-{{ index }}">
-    <div class="title">
-      {{ q.ru_title }}
-    </div>
+		<h1>Какой график лучше?</h1>
+    <!--<div class="title">-->
+      <!--{{ q.ru_title }}-->
+    <!--</div>-->
     <div class="optionSet">
       <a href="#">
         <img src="{{ q.img_true }}" class="option option-correct" />
@@ -24,6 +26,7 @@ layout: game
   </div>
   {% assign index = index | plus: 1 %}
 {% endfor %}
+
 
 <div id="result">
 	<span class='correct'></span> of <span class="total"></span>! Good job!
