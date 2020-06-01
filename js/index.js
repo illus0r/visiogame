@@ -1,11 +1,14 @@
 function Game() {
-	this.state = 'init' // intro, progress, finish
+	this.state = 'intro' // intro, progress, finish
 	this.questionCount = document.querySelectorAll("#game .optionSet").length
 
 
-	this.updateProgress = () => {
+	this.updateProgress = (isVisible) => {
 		const progress = document.querySelector(".progress")
 		progress.innerHTML = ''
+
+		if (! isVisible) return
+
 		let index = 0
 		for (q of this.questionsCorrectness) {
 			progress.innerHTML += `<div class='${ q? 'correct' : 'wrong' }'></div>`
@@ -33,9 +36,10 @@ function Game() {
 			questions[i].classList.remove('visible')
 		}
 
+		this.updateProgress(this.state != 'intro')
+
 		if (this.state != 'progress') return
 
-		this.updateProgress()
       
     const currentQuestion = document
       .querySelector(`#game .question-${ this.currentQuestion }`)
