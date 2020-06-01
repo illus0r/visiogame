@@ -1,4 +1,5 @@
 function Game() {
+	this.isGameStarted = false
   this.currentQuestion = 0
   this.answerIsShown = false
 	this.isLastAnswerCorrect = true
@@ -43,7 +44,18 @@ function Game() {
     })
   }
 
+	this.start = () => {
+		this.isGameStarted = true
+    this.updateView()
+	}
+
   this.updateView = () => {
+
+		let intro = document.querySelector("#game #intro")
+		intro.classList.toggle('visible',	!this.isGameStarted)
+		if (! this.isGameStarted) return
+
+
 		this.showProgress()
 		
     const questions = document
@@ -92,6 +104,12 @@ window.addEventListener('load', function () {
   document.querySelector('#game').onclick = (event) => {
     const classList = event.target.classList
 
+		if (! game.isGameStarted && classList.contains('start')) {
+			game.start()
+			console.log('start')
+			return
+		}
+
 		if (! game.answerIsShown) {
 			if(classList.contains('option-correct')) {
 				game.showAnswer(true)
@@ -99,9 +117,11 @@ window.addEventListener('load', function () {
 			if(classList.contains('option-wrong')) {
 				game.showAnswer(false)
 			}
+			return
 		}
-		else if(classList.contains('next')) {
+		if(classList.contains('next')) {
 			game.showNextQuestion()
+			return
 		}
   }
 })
