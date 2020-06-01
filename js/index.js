@@ -1,26 +1,9 @@
 function Game() {
-	this.isGameStarted = false
-  this.currentQuestion = 0
-  this.answerIsShown = false
-	this.isLastAnswerCorrect = true
+	this.state = 'init' // intro, progress, finish
 	this.questionCount = document.querySelectorAll("#game .optionSet").length
-	this.questionsCorrectness = []
 
-	this.countCorrect = () => {
-		let sum = 0
-		for (let q of this.questionsCorrectness)
-			sum += q
-		return sum
-	}
 
-	this.showResult = () => {
-		const result = document.querySelector("#result")
-		result.querySelector(".correct").innerText = this.countCorrect()
-		result.querySelector(".total").innerText = this.questionCount
-		result.classList.add('visible')
-	}
-
-	this.showProgress = () => {
+	this.updateProgress = () => {
 		const progress = document.querySelector(".progress")
 		progress.innerHTML = ''
 		let index = 0
@@ -33,43 +16,27 @@ function Game() {
 		}
 	}
 
-  this.shuffleAnswers = () => {
-    const optionSets = document
-      .querySelectorAll("#game .optionSet")
-
-    optionSets.forEach( optionSet => {
-      if(Math.random() < 0.5) {
-        optionSet.appendChild(optionSet.firstElementChild)
-      }
-    })
-  }
-
-	this.start = () => {
-		this.isGameStarted = true
-    this.updateView()
-	}
 
   this.updateView = () => {
 
 		let intro = document.querySelector("#game #intro")
-		intro.classList.toggle('visible',	!this.isGameStarted)
-		if (! this.isGameStarted) return
+		intro.classList.toggle('visible',	this.state == 'intro')
 
+		const result = document.querySelector("#result")
+		result.classList.toggle('visible', this.state == 'finish')
 
-		this.showProgress()
-		
-    const questions = document
-      .querySelectorAll("#game .question.visible")
+		// hide all questions
+		const questions = document
+			.querySelectorAll("#game .question.visible")
 
-    for (let i = 0; i < questions.length; i++) {
-      questions[i].classList.remove('visible')
-    }
-      
-		if (this.currentQuestion >= this.questionCount) {
-			this.showResult()
-			return
+		for (let i = 0; i < questions.length; i++) {
+			questions[i].classList.remove('visible')
 		}
 
+		if (this.state != 'progress') return
+
+		this.updateProgress()
+      
     const currentQuestion = document
       .querySelector(`#game .question-${ this.currentQuestion }`)
 
@@ -81,11 +48,63 @@ function Game() {
     currentQuestion.querySelector('#game .answer .wrong').classList.toggle('visible', !this.isLastAnswerCorrect)
   }
 
+
+	this.init = () => {
+		this.state = 'intro'
+		this.currentQuestion = 0
+		this.answerIsShown = false
+		this.isLastAnswerCorrect = true
+		this.questionsCorrectness = []
+    this.updateView()
+	}
+	this.init()
+
+
+	this.start = () => {
+		this.state = 'progress'
+    this.updateView()
+	}
+
+
+	this.countCorrect = () => {
+		let sum = 0
+		for (let q of this.questionsCorrectness)
+			sum += q
+		return sum
+	}
+
+
+	this.updateResult = () => {
+		const result = document.querySelector("#result")
+		result.querySelector(".correct").innerText = this.countCorrect()
+		result.querySelector(".total").innerText = this.questionCount
+	}
+
+
+  this.shuffleAnswers = () => {
+    const optionSets = document
+      .querySelectorAll("#game .optionSet")
+
+    optionSets.forEach( optionSet => {
+      if(Math.random() < 0.5) {
+        optionSet.appendChild(optionSet.firstElementChild)
+      }
+    })
+  }
+
+
   this.showNextQuestion = () => {
     this.answerIsShown = false
     this.currentQuestion += 1
+
+		if (this.currentQuestion >= this.questionCount) {
+			this.updateResult()
+			this.state = 'finish'
+		}
+
     this.updateView()
   }
+
 
   this.showAnswer = (correctness) => {
     this.answerIsShown = true
@@ -104,9 +123,13 @@ window.addEventListener('load', function () {
   document.querySelector('#game').onclick = (event) => {
     const classList = event.target.classList
 
-		if (! game.isGameStarted && classList.contains('start')) {
+		if (classList.contains('start')) {
 			game.start()
-			console.log('start')
+			return
+		}
+
+		if (classList.contains('restart')) {
+			game.init()
 			return
 		}
 

@@ -12,9 +12,6 @@ layout: game
 {% for q in site.questions %}
   <div class="question question-{{ index }}">
 		<h1>Какой график лучше?</h1>
-    <!--<div class="title">-->
-      <!--{{ q.ru_title }}-->
-    <!--</div>-->
     <div class="optionSet">
       <a href="#">
         <img src="{{ q.img_true }}" class="option option-correct" />
@@ -35,4 +32,5 @@ layout: game
 
 <div id="result">
 	<span class='correct'></span> of <span class="total"></span>! Good job!
+	<button class="restart">ПОЕХАЛИ</button>
 </div>
