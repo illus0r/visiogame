@@ -86,12 +86,24 @@ function Game() {
 
 
   this.shuffleAnswers = () => {
-    const optionSets = document
-      .querySelectorAll("#game .optionSet")
+    const questions = document
+      .querySelectorAll("#game .question")
 
-    optionSets.forEach( optionSet => {
+    questions.forEach( question => {
       if(Math.random() < 0.5) {
+        // swap correct and wrong answers
+        optionSet = question.querySelector(".optionSet")
         optionSet.appendChild(optionSet.firstElementChild)
+        //question.querySelector(".explanation.correct").classList.remove('right')
+        //question.querySelector(".explanation.wrong").classList.remove('left')
+        question.querySelector(".explanation.correct").classList.add('right')
+        question.querySelector(".explanation.wrong").classList.add('left')
+      }
+      else {
+        //question.querySelector(".explanation.correct").classList.remove('right')
+        //question.querySelector(".explanation.wrong").classList.remove('left')
+        question.querySelector(".explanation.correct").classList.add('left')
+        question.querySelector(".explanation.wrong").classList.add('right')
       }
     })
   }

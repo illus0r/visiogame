@@ -20,6 +20,16 @@ body {
       display: none;
 			.explanation{
 				display: none;
+        position: absolute;
+        top: 0;
+				&.left {
+          right: 50%;
+          left: 0;
+				}
+				&.right {
+          left: 50%;
+          right: 0;
+				}
 				&.correct {
 					color: green;
 				}
