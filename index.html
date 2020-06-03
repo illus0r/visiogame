@@ -3,28 +3,35 @@ layout: game
 ---
 
 <div id="intro">
-	Hello
-	<button class="start">ПОЕХАЛИ</button>
+	<h1>В 2020-м руки научились мыть все. А что насчет правил гигиены в визуализации данных?</h1>
+	<button class="start">ПОЕХАЛИ →</button>
 </div>
 
 <div class="progress"></div>
 {% assign index = 0 %}
 {% for q in site.questions %}
   <div class="question question-{{ index }}">
-		<h1>Какой график лучше?</h1>
     <div class="optionSet">
-      <a href="#">
-        <img src="{{ q.img_true }}" class="option option-correct" />
-      </a>
-      <a href="#" >
-        <img src="{{ q.img_false }}" class="option option-wrong" />
-      </a>
+
+	      <a href="#" class="card-link option-correct">
+	       	 <img src="{{ q.img_true }}" class="option option-correct" />
+			  </a>
+
+
+
+	      <a href="#" class="card-link option-wrong">
+	       	 <img src="{{ q.img_false }}" class="option option-wrong" />
+	      </a>
+
     </div>
     <div class="answer">
       <div class="explanation correct">{{ q.ru_explanation_correct }}</div>
       <div class="explanation wrong">{{ q.ru_explanation_wrong }}</div>
-      <button class="next">NEXT</button>
+      <button class="next">Дальше →</button>
     </div>
+
+		<h2 class="title">{{ index }}/15 Какой график лучше?</h2>
+
   </div>
   {% assign index = index | plus: 1 %}
 {% endfor %}
@@ -32,5 +39,5 @@ layout: game
 
 <div id="result">
 	<span class='correct'></span> of <span class="total"></span>! Good job!
-	<button class="restart">ПОЕХАЛИ</button>
+	<button class="restart">Рестартануть →</button>
 </div>

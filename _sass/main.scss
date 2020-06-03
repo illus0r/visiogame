@@ -1,20 +1,87 @@
-@import url('https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap');
 
 body {
-  font-family: "comic sans" "ms comic sans";
-	text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #000;
+  margin: 0;
+  padding: 0;
+  background: #F0F0F0;
+  height: 100vh;
+  overflow: hidden;
 }
-
+button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  letter-spacing: 2px;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+  color: blue;
+  text-transform: uppercase;
+  cursor: pointer;
+  &:hover {
+    color: pink;
+    transition: all .3s;
+  }
+}
+h1, h2, .menu-link, .counter {
+  margin: 0;
+  padding: 0;
+  letter-spacing: 2px;
+  font-weight: 400;
+  color: #000;
+  text-decoration: none;
+}
+h1 {
+  font-size: 5vw;
+  font-family: 'IBM Plex Sans', sans-serif;
+  width: 50%;
+  line-height: 110%;
+}
+h2, .counter, .menu-link {
+  font-size: 24px;
+  text-transform: uppercase;
+}
+.main-logo {
+  margin-top: 2px;
+}
+.main-menu {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 30px;
+}
+.menu-link {
+  &:hover {
+    color: pink;
+    transition: all .3s;
+  }
+}
+.counter {
+  position: relative;
+  &:before {
+    content: url(../img/tr.svg);
+    position: absolute;
+    top: -4px;
+    left: -15px;
+  }
+}
 #game {
-	width: 600px;
-	margin: 100px auto;
+  margin: 10px 30px;
+  height: calc(100vh - 20px);
 	.visible {
 		display: block !important;
 	}
   .question {
     display: none;
     img.option {
-      width: 256px;
+      max-width: 100%;
+      filter: invert(100%);
+      //width: 256px;
     }
     .answer{
       display: none;
@@ -23,12 +90,14 @@ body {
         position: absolute;
         top: 0;
 				&.left {
-          right: 50%;
-          left: 0;
+          right: calc(50% - 30px);
+          left: 40px;
+          top: 60px;
 				}
 				&.right {
-          left: 50%;
-          right: 0;
+          left: calc(50% + 30px);
+          right: 40px;
+          top: 60px;
 				}
 				&.correct {
 					color: green;
@@ -42,9 +111,22 @@ body {
 	#result, #intro{
 		display: none;
 	}
+  .optionSet {
+    background: #000;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a {
+      &:hover {
+        background: #151515;
+      }
+    }
+  }
 	.progress {
 		div {
 			display: inline-block;
+      display: none;
 			width: 20px;
 			height: 20px;
 			border-radius: 999px;
@@ -59,4 +141,72 @@ body {
 			background: silver;
 		}
 	}
+  button.next{
+    text-transform: uppercase;
+    position: absolute;
+    right: 30px;
+    bottom: 10px;
+  }
+  .title {
+    position: absolute;
+    left: 30px;
+    bottom: 10px;
+  }
+  .start {
+    position: absolute;
+    left: 30px;
+    bottom: 10px;
+    font-size: 70px;
+  }
+  .card-link {
+    height: 90vh;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 785px) {
+  #game {
+  .question {
+    display: none;
+    img.option {
+      max-width: 100%;
+      filter: invert(100%);
+      //width: 256px;
+    }
+    .answer{
+      display: none;
+			.explanation{
+				display: none;
+        position: inherit;
+        margin-top: 20px;
+				&.correct {
+					color: green;
+				}
+				&.wrong {
+					color: red;
+				}
+			}
+    }
+  }
+  .optionSet {
+    height: auto;
+    display: block;
+    align-items: unset;
+    justify-content: unset;
+}
+.card-link {
+    height: auto;
+    width: 100%;
+    display: block;
+    align-items: unset;
+    justify-content: unset;
+    text-align: center;
+  }
+  .question img.option {
+    max-width: 60%;
+  }
+}
 }
