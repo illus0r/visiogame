@@ -131,6 +131,13 @@ function Game() {
 }
 
 
+// https://stackoverflow.com/questions/16863917/check-if-class-exists-somewhere-in-parent-vanilla-js
+function ancestorsHaveClass(element, classname) {
+    if (element.className.split(' ').indexOf(classname)>=0) return true;
+    return element.parentElement && ancestorsHaveClass(element.parentElement, classname);
+}
+
+
 window.addEventListener('load', function () {
   game = new Game()
   game.updateView()
@@ -158,9 +165,12 @@ window.addEventListener('load', function () {
 			}
 			return
 		}
-		if(classList.contains('next')) {
-			game.showNextQuestion()
-			return
-		}
+    else {
+      if ( ancestorsHaveClass(event.target, 'next') || ancestorsHaveClass(event.target, 'question') ) {
+        game.showNextQuestion()
+        return
+      }
+    }
+
   }
 })
