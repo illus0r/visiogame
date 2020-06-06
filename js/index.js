@@ -4,19 +4,21 @@ function Game() {
 
 
 	this.updateProgress = (isVisible) => {
-		const progress = document.querySelector(".progress")
-		progress.innerHTML = ''
+		//const progress = document.querySelector(".progress")
+    //progress.innerHTML = ''
+		const counter = document.querySelector(".counter")
+		counter.innerHTML = `${ this.questionsCorrectness.filter(d => d).length }/${ this.questionsCorrectness.length }`
 
-		if (! isVisible) return
+		//if (! isVisible) return
 
-		let index = 0
-		for (q of this.questionsCorrectness) {
-			progress.innerHTML += `<div class='${ q? 'correct' : 'wrong' }'></div>`
-			index ++
-		}
-		for (; index < this.questionCount; index ++) {
-			progress.innerHTML += `<div class='empty'></div>`
-		}
+		//let index = 0
+		//for (q of this.questionsCorrectness) {
+			//progress.innerHTML += `<div class='${ q? 'correct' : 'wrong' }'></div>`
+			//index ++
+		//}
+		//for (; index < this.questionCount; index ++) {
+			//progress.innerHTML += `<div class='empty'></div>`
+		//}
 	}
 
 
