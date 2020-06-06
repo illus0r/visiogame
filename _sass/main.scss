@@ -8,7 +8,7 @@ body {
   padding: 0;
   background: #F0F0F0;
   height: 100vh;
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 button {
@@ -54,7 +54,7 @@ h2, .counter, .menu-link {
   display: -ms-flex;
   display: flex;
   justify-content: space-between;
-  margin: 5px 30px;
+  padding: 5px 30px;
 }
 .menu-link {
   &:hover {
@@ -72,8 +72,15 @@ h2, .counter, .menu-link {
   }
 }
 #game {
-  margin: 10px 30px;
-  height: calc(100vh - 20px);
+	//height: calc(100vh - 20px);
+  margin: 0px;
+	position: fixed;
+	left: 30px;
+	right: 30px;
+	bottom: 0px;
+	top: 40px;
+
+	//overflow: hidden;
 	.visible {
 		display: block !important;
 	}
@@ -81,7 +88,8 @@ h2, .counter, .menu-link {
     display: none;
     img.option {
       max-width: 100%;
-      filter: invert(100%);
+			max-height: 100%;
+      //filter: invert(100%);
       //width: 256px;
     }
     .answer{
@@ -89,16 +97,18 @@ h2, .counter, .menu-link {
 			.explanation{
 				display: none;
         position: absolute;
+				padding: 30px;
+				background: rgba(0, 0, 0, 0.7);
         top: 0;
 				&.left {
-          right: calc(50% - 30px);
-          left: 40px;
-          top: 60px;
+          right: 50%;
+          left: 0px;
+          top: 0px;
 				}
 				&.right {
-          left: calc(50% + 30px);
-          right: 40px;
-          top: 60px;
+          left: 50%;
+          right: 0px;
+          top: 0px;
 				}
 				&.correct {
 					color: green;
@@ -114,13 +124,28 @@ h2, .counter, .menu-link {
 	}
   .optionSet {
     background: #000;
-    height: 90vh;
+    //height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
+		position: fixed;
+		left: 30px;
+		right: 30px;
+		bottom: 50px;
+		top: 40px;
     a {
       &:hover {
-        background: #151515;
+        position: relative;
+				&:after {
+					content: ' ';
+					position: absolute;
+					left: 0;
+					bottom: 0;
+					top: 0;
+					right: 0;
+					background: white;
+					opacity: 0.1;
+				}
       }
     }
   }
@@ -145,12 +170,12 @@ h2, .counter, .menu-link {
   button.next{
     text-transform: uppercase;
     position: absolute;
-    right: 30px;
+    right: 0px;
     bottom: 10px;
   }
   .title {
     position: absolute;
-    left: 30px;
+    left: 0px;
     bottom: 10px;
   }
   .start {
@@ -160,11 +185,16 @@ h2, .counter, .menu-link {
     font-size: 70px;
   }
   .card-link {
-    height: 90vh;
+    //height: 90vh;
+    height: 100%;
     width: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+		background-position: 50% 50%;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-color: #000;
   }
 }
 
@@ -174,7 +204,7 @@ h2, .counter, .menu-link {
     display: none;
     img.option {
       max-width: 100%;
-      filter: invert(100%);
+      //filter: invert(100%);
       //width: 256px;
     }
     .answer{
