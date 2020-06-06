@@ -199,45 +199,52 @@ h2, .counter, .menu-link {
 }
 
 @media screen and (max-width: 785px) {
-  #game {
-  .question {
-    display: none;
-    img.option {
-      max-width: 100%;
-      //filter: invert(100%);
-      //width: 256px;
-    }
-    .answer{
-      display: none;
-			.explanation{
-				display: none;
-        position: inherit;
-        margin-top: 20px;
-				&.correct {
-					color: green;
-				}
-				&.wrong {
-					color: red;
+	#game {
+		.question {
+			//display: none;
+			img.option {
+				//max-width: 100%;
+				//filter: invert(100%);
+				//width: 256px;
+			}
+			.answer{
+				//display: none;
+				.explanation{
+					//display: none;
+					//position: inherit;
+					//margin-top: 20px;
+					&.correct {
+						//color: green;
+					}
+					&.wrong {
+						//color: red;
+					}
 				}
 			}
-    }
-  }
-  .optionSet {
-    height: auto;
-    display: block;
-    align-items: unset;
-    justify-content: unset;
-}
-.card-link {
-    height: auto;
-    width: 100%;
-    display: block;
-    align-items: unset;
-    justify-content: unset;
-    text-align: center;
-  }
-  .question img.option {
-    max-width: 60%;
-  }
-}
+		}
+		.optionSet {
+			//height: auto;
+			//display: block;
+			align-items: unset;
+			justify-content: unset;
+		}
+		.card-link {
+			height: auto;
+			width: 100%;
+			display: block;
+			align-items: unset;
+			justify-content: unset;
+			text-align: center;
+		}
+		.question img.option {
+			max-width: 60%;
+		}
+		button.next {
+			width: 100%;
+			background: $background;
+			z-index: 1;
+			left: 0;
+			text-align: left;
+		}
+	}
 }
