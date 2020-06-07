@@ -23,6 +23,10 @@ function Game() {
 
 
   this.updateView = () => {
+    let body = document.querySelector('body')
+    body.classList.toggle('correct', this.answerIsShown &&  this.isLastAnswerCorrect)
+    body.classList.toggle('wrong',   this.answerIsShown && !this.isLastAnswerCorrect)
+    body.classList.toggle('answer-is-shown', this.answerIsShown)
 
 		let intro = document.querySelector("#game #intro")
 		intro.classList.toggle('visible',	this.state == 'intro')

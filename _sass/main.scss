@@ -8,7 +8,12 @@ body {
   padding: 0;
   background: #F0F0F0;
   height: 100vh;
-  //overflow: hidden;
+	&.wrong {
+		background: #FF000E;
+	}
+	&.correct {
+		background: #00FF19;
+	}
 }
 
 button {
@@ -54,7 +59,7 @@ h2, .counter, .menu-link {
   display: -ms-flex;
   display: flex;
   justify-content: space-between;
-  padding: 5px 30px;
+	padding: 18px 30px 0;
 }
 .menu-link {
   &:hover {
@@ -78,7 +83,7 @@ h2, .counter, .menu-link {
 	left: 30px;
 	right: 30px;
 	bottom: 0px;
-	top: 40px;
+	top: 59px;
 
 	//overflow: hidden;
 	.visible {
@@ -100,6 +105,7 @@ h2, .counter, .menu-link {
 				padding: 30px;
 				background: rgba(0, 0, 0, 0.7);
         top: 0;
+				color: white;
 				&.left {
           right: 50%;
           left: 0px;
@@ -111,11 +117,26 @@ h2, .counter, .menu-link {
           top: 0px;
 				}
 				&.correct {
-					color: green;
+					//color: green;
+					//&:before {
+						//background: green;
+					//}
 				}
 				&.wrong {
-					color: red;
+					//color: red;
+					//&:before {
+						//background: red;
+					//}
 				}
+				//&:before {
+					//content: ' ';
+					//position: fixed;
+					//top: 0;
+					//bottom: 0;
+					//left: 0;
+					//right: 0;
+					//z-index: -1;
+				//}
 			}
     }
   }
@@ -132,7 +153,8 @@ h2, .counter, .menu-link {
 		left: 30px;
 		right: 30px;
 		bottom: 50px;
-		top: 40px;
+		//top: 40px;
+		top: 59px;
     a {
       &:hover {
         position: relative;
@@ -172,6 +194,9 @@ h2, .counter, .menu-link {
     position: absolute;
     right: 0px;
     bottom: 10px;
+		body.answer-is-shown & {
+			color: black !important;
+		}
   }
   .title {
     position: absolute;
@@ -195,6 +220,27 @@ h2, .counter, .menu-link {
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-color: #000;
+		position: relative;
+		&:before {
+			content: '';
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: 50% 50%;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 2;
+		}
+		body.answer-is-shown & {
+			&.option-correct:before {
+				background-image: url(../img/correct.png);
+			}
+			&.option-wrong:before {
+				background-image: url(../img/wrong.png);
+			}
+		}
   }
 }
 
