@@ -58,17 +58,20 @@ h2, .counter, .menu-link {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  justify-content: space-between;
+	justify-content: space-between;
 	padding: 18px 30px 0;
 }
 .menu-link {
+	width: 100px;
   &:hover {
     color: pink;
     transition: all .3s;
   }
 }
 .counter {
+	width: 100px;
   position: relative;
+	text-align-last: right;
   &:before {
     content: url(../img/tr.svg);
     position: absolute;

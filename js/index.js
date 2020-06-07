@@ -8,7 +8,9 @@ function Game() {
     //progress.innerHTML = ''
 		const counter = document.querySelector(".counter")
     //counter.innerHTML = `${ this.questionsCorrectness.filter(d => d).length }/${ this.questionsCorrectness.length }`
-    counter.innerHTML = `${ this.questionsCorrectness.filter(d => d).length * 100 }`
+    let score = '' + this.questionsCorrectness.filter(d => d).length * 100 
+    score = '0'.repeat(6 - score.length) + score
+    counter.innerHTML = score
 
 		//if (! isVisible) return
 
