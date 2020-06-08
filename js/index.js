@@ -175,11 +175,23 @@ window.addEventListener('load', function () {
 			return
 		}
     else {
-      if ( ancestorsHaveClass(event.target, 'next') || ancestorsHaveClass(event.target, 'question') ) {
-        game.showNextQuestion()
-        return
+      console.log(event.target.tagName)
+      if (!event.target.classList.contains('explanation-link')) { // clicking links shouldn't show next question
+        if ( ancestorsHaveClass(event.target, 'next') || ancestorsHaveClass(event.target, 'question') ) {
+          game.showNextQuestion()
+          return
+        }
       }
     }
 
   }
+
+  // add target blank to all explanation links
+  let explanationLinks = document.querySelectorAll('.explanation a')
+  explanationLinks.forEach(a => {
+    a.classList.add('explanation-link')
+    a.setAttribute('target', '_blank')
+  })
 })
+
+
