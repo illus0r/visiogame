@@ -1,27 +1,36 @@
-function Game() {
+function Game(gameSelector) {
 	this.state = 'intro' // intro, progress, finish
-	this.questionCount = document.querySelectorAll("#game .optionSet").length
+	this.questionCount = document.querySelectorAll(gameSelector + " .optionSet").length
+
+	document.querySelectorAll('.start').forEach(e => e.addEventListener('click', () => this.start()))
+	document.querySelectorAll('.restart').forEach(e => e.addEventListener('click', () => this.init()))
+	document.querySelectorAll('.option-correct').forEach(e => e.addEventListener('click', (event) => {
+		if (this.answerIsShown) return
+		this.showAnswer(true)
+		// to avoid instant .optionSet clicking
+		event.stopPropagation()
+	}))
+	document.querySelectorAll('.option-wrong').forEach(e => e.addEventListener('click', (event) => {
+		if (this.answerIsShown) return
+		this.showAnswer(false)
+		// to avoid instant .optionSet clicking
+		event.stopPropagation()
+	}))
+	document.querySelectorAll('.optionSet, .next').forEach(e => e.addEventListener('click', (event) => {
+		if (! this.answerIsShown) return
+		// links in explanations shouldn't switch question
+		if (event.target.classList.contains('explanation-link')) return
+		this.showNextQuestion()
+	}))
 
 
 	this.updateProgress = (isVisible) => {
 		//const progress = document.querySelector(".progress")
     //progress.innerHTML = ''
 		const counter = document.querySelector(".counter")
-    //counter.innerHTML = `${ this.questionsCorrectness.filter(d => d).length }/${ this.questionsCorrectness.length }`
-    let score = '' + this.questionsCorrectness.filter(d => d).length * 100 
+    let score = '' + this.correctAnswersCounter * 100 
     score = '0'.repeat(6 - score.length) + score
     counter.innerHTML = score
-
-		//if (! isVisible) return
-
-		//let index = 0
-		//for (q of this.questionsCorrectness) {
-			//progress.innerHTML += `<div class='${ q? 'correct' : 'wrong' }'></div>`
-			//index ++
-		//}
-		//for (; index < this.questionCount; index ++) {
-			//progress.innerHTML += `<div class='empty'></div>`
-		//}
 	}
 
 
@@ -31,7 +40,7 @@ function Game() {
     body.classList.toggle('wrong',   this.answerIsShown && !this.isLastAnswerCorrect)
     body.classList.toggle('answer-is-shown', this.answerIsShown)
 
-		let intro = document.querySelector("#game #intro")
+		let intro = document.querySelector(gameSelector +" #intro")
 		intro.classList.toggle('visible',	this.state == 'intro')
 
 		const result = document.querySelector("#result")
@@ -39,7 +48,7 @@ function Game() {
 
 		// hide all questions
 		const questions = document
-			.querySelectorAll("#game .question.visible")
+			.querySelectorAll(gameSelector + " .question.visible")
 
 		for (let i = 0; i < questions.length; i++) {
 			questions[i].classList.remove('visible')
@@ -51,14 +60,14 @@ function Game() {
 
       
     const currentQuestion = document
-      .querySelector(`#game .question-${ this.currentQuestion }`)
-
+      .querySelector(gameSelector +	` .question-${ this.currentQuestion }`)
     currentQuestion.classList.add('visible')
-
-    currentQuestion.querySelector('#game .answer')
-      .classList.toggle('visible', this.answerIsShown)
-    currentQuestion.querySelector('#game .answer .correct').classList.toggle('visible', this.isLastAnswerCorrect)
-    currentQuestion.querySelector('#game .answer .wrong').classList.toggle('visible', !this.isLastAnswerCorrect)
+    const currentAnswer = currentQuestion.querySelector('.answer')
+    currentAnswer.classList.toggle('visible', this.answerIsShown)
+    const currentAnswerCorrect = currentAnswer.querySelector('.correct')
+		currentAnswerCorrect.classList.toggle('visible', this.isLastAnswerCorrect)
+    const currentAnswerWrong = currentAnswer.querySelector('.wrong')
+		currentAnswerWrong.classList.toggle('visible', !this.isLastAnswerCorrect)
   }
 
 
@@ -67,7 +76,7 @@ function Game() {
 		this.currentQuestion = 0
 		this.answerIsShown = false
 		this.isLastAnswerCorrect = true
-		this.questionsCorrectness = []
+		this.correctAnswersCounter = 0
     this.updateView()
 	}
 	this.init()
@@ -79,40 +88,31 @@ function Game() {
 	}
 
 
-	this.countCorrect = () => {
-		let sum = 0
-		for (let q of this.questionsCorrectness)
-			sum += q
-		return sum
-	}
-
-
 	this.updateResult = () => {
 		const result = document.querySelector("#result")
-		result.querySelector(".correct").innerText = this.countCorrect()
+		result.querySelector(".correct").innerText = this.correctAnswersCounter
 		result.querySelector(".total").innerText = this.questionCount
 	}
 
 
   this.shuffleAnswers = () => {
     const questions = document
-      .querySelectorAll("#game .question")
+      .querySelectorAll(gameSelector + " .question")
 
     questions.forEach( question => {
+			const correctExplanation = question.querySelector(".explanation.correct")
+			const wrongExplanation = question.querySelector(".explanation.wrong")
       if(Math.random() < 0.5) {
         // swap correct and wrong answers
         optionSet = question.querySelector(".optionSet")
         optionSet.appendChild(optionSet.firstElementChild)
-        //question.querySelector(".explanation.correct").classList.remove('right')
-        //question.querySelector(".explanation.wrong").classList.remove('left')
-        question.querySelector(".explanation.correct").classList.add('right')
-        question.querySelector(".explanation.wrong").classList.add('left')
+
+        correctExplanation.classList.add('right')
+        wrongExplanation.classList.add('left')
       }
       else {
-        //question.querySelector(".explanation.correct").classList.remove('right')
-        //question.querySelector(".explanation.wrong").classList.remove('left')
-        question.querySelector(".explanation.correct").classList.add('left')
-        question.querySelector(".explanation.wrong").classList.add('right')
+        correctExplanation.classList.add('left')
+        wrongExplanation.classList.add('right')
       }
     })
   }
@@ -134,7 +134,9 @@ function Game() {
   this.showAnswer = (correctness) => {
     this.answerIsShown = true
 		this.isLastAnswerCorrect = correctness
-		this.questionsCorrectness.push(correctness)
+		if (correctness) {
+			this.correctAnswersCounter ++
+		}
     this.updateView()
   }
 }
@@ -148,50 +150,8 @@ function ancestorsHaveClass(element, classname) {
 
 
 window.addEventListener('load', function () {
-  game = new Game()
+	const gameSelector = '#game'
+  const game = new Game(gameSelector)
   game.updateView()
   game.shuffleAnswers()
-
-  document.querySelector('#game').onclick = (event) => {
-    const classList = event.target.classList
-
-		if (classList.contains('start')) {
-			game.start()
-			return
-		}
-
-		if (classList.contains('restart')) {
-			game.init()
-			return
-		}
-
-		if (! game.answerIsShown) {
-			if(classList.contains('option-correct')) {
-				game.showAnswer(true)
-			}
-			if(classList.contains('option-wrong')) {
-				game.showAnswer(false)
-			}
-			return
-		}
-    else {
-      console.log(event.target.tagName)
-      if (!event.target.classList.contains('explanation-link')) { // clicking links shouldn't show next question
-        if ( ancestorsHaveClass(event.target, 'next') || ancestorsHaveClass(event.target, 'question') ) {
-          game.showNextQuestion()
-          return
-        }
-      }
-    }
-
-  }
-
-  // add target blank to all explanation links
-  let explanationLinks = document.querySelectorAll('.explanation a')
-  explanationLinks.forEach(a => {
-    a.classList.add('explanation-link')
-    a.setAttribute('target', '_blank')
-  })
 })
-
-

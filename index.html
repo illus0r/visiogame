@@ -31,8 +31,8 @@ layout: game
 
 	</div>
 	<div class="answer">
-		<div class="explanation correct">{{ q.ru_explanation_correct | markdownify }}</div>
-		<div class="explanation wrong">{{ q.ru_explanation_wrong | markdownify }}</div>
+		<div class="explanation correct">{{ q.ru_explanation_correct | markdownify | replace: "<a ", "<a target='_blank' " }}</div>
+		<div class="explanation wrong">{{ q.ru_explanation_wrong | markdownify | replace: "<a ", "<a target='_blank' " }}</div>
 		<button class="next">Дальше →</button>
 	</div>
 
