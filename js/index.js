@@ -24,7 +24,7 @@ function Game(gameSelector) {
 	}))
 
 
-	this.updateProgress = (isVisible) => {
+	this.updateCounter = () => {
 		//const progress = document.querySelector(".progress")
     //progress.innerHTML = ''
 		const counter = document.querySelector(".counter")
@@ -34,41 +34,61 @@ function Game(gameSelector) {
 	}
 
 
+	this.hideEverything = () => {
+		// hide intro screen
+		let intro = document.querySelector(gameSelector +" #intro")
+		intro.classList.remove('visible')
+
+		// hide all questions
+		const questions = document.querySelectorAll(gameSelector + " .question.visible")
+		for (let i = 0; i < questions.length; i++) {
+			questions[i].classList.remove('visible')
+		}
+
+		// hide result screen
+		const result = document.querySelector("#result")
+		result.classList.remove('visible')
+	}
+
+
   this.updateView = () => {
     let body = document.querySelector('body')
     body.classList.toggle('correct', this.answerIsShown &&  this.isLastAnswerCorrect)
     body.classList.toggle('wrong',   this.answerIsShown && !this.isLastAnswerCorrect)
     body.classList.toggle('answer-is-shown', this.answerIsShown)
 
-		let intro = document.querySelector(gameSelector +" #intro")
-		intro.classList.toggle('visible',	this.state == 'intro')
+		this.hideEverything()
 
-		const result = document.querySelector("#result")
-		result.classList.toggle('visible', this.state == 'finish')
+		switch (this.state) {
+			case 'intro': 
+				intro.classList.add('visible')
+				break
 
-		// hide all questions
-		const questions = document
-			.querySelectorAll(gameSelector + " .question.visible")
+			case 'progress': 
+				// show current question
+				const currentQuestion = document
+					.querySelector(gameSelector +	` .question-${ this.currentQuestion }`)
+				currentQuestion.classList.add('visible')
 
-		for (let i = 0; i < questions.length; i++) {
-			questions[i].classList.remove('visible')
+				// if answer is shown, show current answer, else hide it
+				const currentAnswer = currentQuestion.querySelector('.answer')
+				currentAnswer.classList.toggle('visible', this.answerIsShown)
+
+				// show correct or wrong answer
+				const currentAnswerCorrect = currentAnswer.querySelector('.correct')
+				currentAnswerCorrect.classList.toggle('visible', this.isLastAnswerCorrect)
+				const currentAnswerWrong = currentAnswer.querySelector('.wrong')
+				currentAnswerWrong.classList.toggle('visible', !this.isLastAnswerCorrect)
+
+				this.updateCounter()
+				
+				break
+
+			case 'finish': 
+				result.classList.add('visible')
+				break			
 		}
-
-		this.updateProgress(this.state != 'intro')
-
-		if (this.state != 'progress') return
-
-      
-    const currentQuestion = document
-      .querySelector(gameSelector +	` .question-${ this.currentQuestion }`)
-    currentQuestion.classList.add('visible')
-    const currentAnswer = currentQuestion.querySelector('.answer')
-    currentAnswer.classList.toggle('visible', this.answerIsShown)
-    const currentAnswerCorrect = currentAnswer.querySelector('.correct')
-		currentAnswerCorrect.classList.toggle('visible', this.isLastAnswerCorrect)
-    const currentAnswerWrong = currentAnswer.querySelector('.wrong')
-		currentAnswerWrong.classList.toggle('visible', !this.isLastAnswerCorrect)
-  }
+	}
 
 
 	this.init = () => {
