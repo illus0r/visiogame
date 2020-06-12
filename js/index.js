@@ -1,6 +1,6 @@
 function Game(gameSelector) {
 	this.state = 'intro' // intro, progress, finish
-	this.questionCount = document.querySelectorAll(gameSelector + " .optionSet").length
+	this.questionCount = 1 // FIXME document.querySelectorAll(gameSelector + " .optionSet").length
 
 	document.querySelectorAll('.start').forEach(e => e.addEventListener('click', () => this.start()))
 	document.querySelectorAll('.restart').forEach(e => e.addEventListener('click', () => this.init()))
@@ -110,8 +110,10 @@ function Game(gameSelector) {
 
 	this.updateResult = () => {
 		const result = document.querySelector("#result")
-		result.querySelector(".correct").innerText = this.correctAnswersCounter
-		result.querySelector(".total").innerText = this.questionCount
+		console.log(result.querySelector(".score-text").innerText)
+		//result.querySelector(".correct").innerText = this.correctAnswersCounter
+		//result.querySelector(".total").innerText = this.questionCount
+		result.querySelector(".score-text").innerText = this.correctAnswersCounter * 100
 	}
 
 
