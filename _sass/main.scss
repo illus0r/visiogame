@@ -29,8 +29,7 @@ button {
   text-transform: uppercase;
   cursor: pointer;
   &:hover {
-    color: pink;
-    transition: all .3s;
+    color: gray;
   }
 }
 h1, h2, .menu-link, .counter {
@@ -64,8 +63,7 @@ h2, .counter, .menu-link {
 .menu-link {
 	width: 100px;
   &:hover {
-    color: pink;
-    transition: all .3s;
+    color: gray;
   }
 }
 .counter {
@@ -148,8 +146,6 @@ h2, .counter, .menu-link {
   }
 	#result, #intro{
 		display: none;
-	}
-	#intro {
 		svg.background {
 			position: fixed;
 			top: 0;
@@ -157,7 +153,32 @@ h2, .counter, .menu-link {
 			left: 0;
 			right: 0;
 			fill: none;
+			z-index: -1;
 		}
+	}
+	#result {
+		font-family: "IBM Plex Sans";
+		h1 {
+			font-size: 4.3vw;
+			margin-top: 1.3vw;
+			.score-text {
+				font-family: "IBM Plex Mono";
+				break-before: always;
+			}
+		}
+		p {
+			max-width: 522px;
+			font-size: 24px;
+			margin-top: 0.7em;
+			line-height: 1.1em;
+		}
+		button.restart {
+			position: absolute;
+			bottom: 9px;
+			left: 0;
+		}
+	}
+	#intro {
 	}
   .optionSet {
     background: #000;
