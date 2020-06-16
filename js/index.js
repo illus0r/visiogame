@@ -1,6 +1,6 @@
 function Game(gameSelector) {
 	this.state = 'intro' // intro, progress, finish
-	this.questionCount = 1 // FIXME document.querySelectorAll(gameSelector + " .optionSet").length
+	this.questionCount = FIXME document.querySelectorAll(gameSelector + " .optionSet").length
 
 	document.querySelectorAll('.start').forEach(e => e.addEventListener('click', () => this.start()))
 	document.querySelectorAll('.restart').forEach(e => e.addEventListener('click', () => this.init()))
