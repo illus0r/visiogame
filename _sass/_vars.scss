@@ -1,1 +1,8 @@
 $background: #F0F0F0;
+$width-mobile: 546px;
+
+@mixin mobile() {
+    @media only screen and (max-width: $width-mobile) {
+        @content;
+    }
+}

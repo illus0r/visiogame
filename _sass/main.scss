@@ -107,6 +107,12 @@ h2, .counter, .menu-link {
 				background: rgba(0, 0, 0, 0.7);
         top: 0;
 				color: white;
+				@include mobile {
+					position: static;
+					background: none;
+					color: black;
+					padding: 0;
+				}
 				& a {
 					color: white !important;
 				}
@@ -120,27 +126,6 @@ h2, .counter, .menu-link {
           right: 0px;
           top: 0px;
 				}
-				&.correct {
-					//color: green;
-					//&:before {
-						//background: green;
-					//}
-				}
-				&.wrong {
-					//color: red;
-					//&:before {
-						//background: red;
-					//}
-				}
-				//&:before {
-					//content: ' ';
-					//position: fixed;
-					//top: 0;
-					//bottom: 0;
-					//left: 0;
-					//right: 0;
-					//z-index: -1;
-				//}
 			}
     }
   }
@@ -190,9 +175,54 @@ h2, .counter, .menu-link {
 		left: 30px;
 		right: 30px;
 		bottom: 50px;
-		//top: 40px;
 		top: 59px;
-    a {
+		@include mobile {
+			display: block;
+			background: none;
+			flex-direction: column;
+			justify-content: space-between;
+			bottom: auto;
+			height: 60%;
+			top: 69px;
+			position: static;
+		}
+		a.card-link {
+			height: 100%;
+			width: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-position: 50% 50%;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-color: #000;
+			position: relative;
+			@include mobile {
+				height: 200px;
+				width: 100%;
+				display: block;
+				margin-bottom: 20px;
+			}
+			&:before {
+				content: '';
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: 50% 50%;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				z-index: 2;
+			}
+			body.answer-is-shown & {
+				&.option-correct:before {
+					background-image: url(../img/correct.png);
+				}
+				&.option-wrong:before {
+					background-image: url(../img/wrong.png);
+				}
+			}
       &:hover {
         position: relative;
 				&:after {
@@ -246,88 +276,5 @@ h2, .counter, .menu-link {
     bottom: 10px;
     font-size: 70px;
   }
-  .card-link {
-    //height: 90vh;
-    height: 100%;
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-		background-position: 50% 50%;
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-color: #000;
-		position: relative;
-		&:before {
-			content: '';
-			background-size: contain;
-			background-repeat: no-repeat;
-			background-position: 50% 50%;
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			z-index: 2;
-		}
-		body.answer-is-shown & {
-			&.option-correct:before {
-				background-image: url(../img/correct.png);
-			}
-			&.option-wrong:before {
-				background-image: url(../img/wrong.png);
-			}
-		}
-  }
 }
 
-//@media screen and (max-width: 785px) {
-	//#game {
-		//.question {
-			////display: none;
-			//img.option {
-				////max-width: 100%;
-				////filter: invert(100%);
-				////width: 256px;
-			//}
-			//.answer{
-				////display: none;
-				//.explanation{
-					////display: none;
-					////position: inherit;
-					////margin-top: 20px;
-					//&.correct {
-						////color: green;
-					//}
-					//&.wrong {
-						////color: red;
-					//}
-				//}
-			//}
-		//}
-		//.optionSet {
-			////height: auto;
-			////display: block;
-			//align-items: unset;
-			//justify-content: unset;
-		//}
-		//.card-link {
-			//height: auto;
-			//width: 100%;
-			//display: block;
-			//align-items: unset;
-			//justify-content: unset;
-			//text-align: center;
-		//}
-		//.question img.option {
-			//max-width: 60%;
-		//}
-		//button.next {
-			//width: 100%;
-			//background: $background;
-			//z-index: 1;
-			//left: 0;
-			//text-align: left;
-		//}
-	//}
-//}
