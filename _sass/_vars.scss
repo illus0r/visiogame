@@ -1,5 +1,7 @@
 $background: #F0F0F0;
 $width-mobile: 546px;
+$color-wrong: #FF000E;
+$color-correct: #00FF19;
 
 @mixin mobile() {
     @media only screen and (max-width: $width-mobile) {

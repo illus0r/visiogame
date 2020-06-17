@@ -9,20 +9,24 @@ body {
   background: #F0F0F0;
   height: 100vh;
 	&.wrong {
-		background: #FF000E;
+		background: $color-wrong;
 	}
 	&.correct {
-		background: #00FF19;
+		background: $color-correct;
+	}
+	font-size: 24px;
+	@include mobile {
+		font-size: 18px;
 	}
 }
 
 button {
   background: none;
   border: none;
-  font-size: 24px;
   letter-spacing: 2px;
   font-family: 'IBM Plex Mono', monospace;
   padding: 0;
+	font-size: 1em;
   margin: 0;
   font-weight: 400;
   color: blue;
@@ -45,13 +49,21 @@ h1 {
   font-family: 'IBM Plex Sans', sans-serif;
   width: 50%;
   line-height: 110%;
+	@include mobile {
+		width: auto;
+		font-size: 9vw;
+	}
 }
 h2, .counter, .menu-link {
-  font-size: 24px;
   text-transform: uppercase;
 }
 .main-logo {
   margin-top: 2px;
+	@include mobile { 
+		position: absolute;
+		left: 30px;
+		top: 18px;
+	}
 }
 .main-menu {
   display: -webkit-flex;
@@ -59,6 +71,10 @@ h2, .counter, .menu-link {
   display: flex;
 	justify-content: space-between;
 	padding: 18px 30px 0;
+	@include mobile { 
+		display: block;
+		padding-top: 56px;
+	}
 }
 .menu-link {
 	width: 100px;
@@ -70,6 +86,10 @@ h2, .counter, .menu-link {
 	width: 100px;
   position: relative;
 	text-align-last: right;
+	@include mobile { 
+		width: 77px;
+		float: right;
+	}
   &:before {
     content: url(../img/tr.svg);
     position: absolute;
@@ -78,13 +98,18 @@ h2, .counter, .menu-link {
   }
 }
 #game {
-	//height: calc(100vh - 20px);
   margin: 0px;
 	position: fixed;
 	left: 30px;
 	right: 30px;
 	bottom: 0px;
 	top: 59px;
+	@include mobile {
+		position: static;
+		margin-top: 20px;
+		padding: 0 30px;
+		margin-bottom: 100px;
+	}
 
 	//overflow: hidden;
 	.visible {
@@ -104,17 +129,23 @@ h2, .counter, .menu-link {
 				display: none;
         position: absolute;
 				padding: 30px;
+				margin: 0;
 				background: rgba(0, 0, 0, 0.7);
         top: 0;
 				color: white;
+				font-size: 0.8em;
 				@include mobile {
 					position: static;
-					background: none;
 					color: black;
 					padding: 0;
+					margin: 0 0 100px 0;
+					background: none;
 				}
 				& a {
 					color: white !important;
+					@include mobile {
+						color: black !important;
+					}
 				}
 				&.left {
           right: 50%;
@@ -146,14 +177,15 @@ h2, .counter, .menu-link {
 		h1 {
 			font-size: 4.3vw;
 			margin-top: 1.3vw;
+			@include mobile {
+				font-size: 2em;
+			}
 			.score-text {
 				font-family: "IBM Plex Mono";
-				break-before: always;
 			}
 		}
 		p {
 			max-width: 522px;
-			font-size: 24px;
 			margin-top: 0.7em;
 			line-height: 1.1em;
 		}
@@ -235,25 +267,27 @@ h2, .counter, .menu-link {
 					background: white;
 					opacity: 0.1;
 				}
-      }
+			}
     }
   }
-	.progress {
-		div {
-			display: inline-block;
-      display: none;
-			width: 20px;
-			height: 20px;
-			border-radius: 999px;
-		}
-		.correct {
-			background: green;
-		}
-		.wrong {
-			background: red;
-		}
-		.empty {
-			background: silver;
+	.title, button.next, button.restart {
+		@include mobile { 
+			position: fixed !important;
+			bottom: 0 !important;
+			left: 0;
+			right: 0;
+			height: 63px;
+			background: $background;
+			padding: 0px 30px;
+			display: flex;
+			align-items: center;
+			box-sizing: border-box;
+			body.wrong & {
+				background: $color-wrong;
+			}
+			body.correct & {
+				background: $color-correct;
+			}
 		}
 	}
   button.next{
@@ -261,12 +295,18 @@ h2, .counter, .menu-link {
     position: absolute;
     right: 0px;
     bottom: 10px;
+		@include mobile {
+			justify-content: flex-end;
+			width: 100%;
+			z-index: 1;
+		}
 		body.answer-is-shown & {
 			color: black !important;
 		}
   }
   .title {
     position: absolute;
+		font-size: 1em;
     left: 0px;
     bottom: 10px;
   }
@@ -275,6 +315,10 @@ h2, .counter, .menu-link {
     left: 0px;
     bottom: 10px;
     font-size: 70px;
-  }
+		@include mobile { 
+			font-size: 40px;
+			left: 30px;
+		}
+	}
 }
 
