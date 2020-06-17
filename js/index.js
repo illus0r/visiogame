@@ -26,7 +26,6 @@ function Game(gameSelector) {
 
 	this.updateCounter = () => {
 		//const progress = document.querySelector(".progress")
-    //progress.innerHTML = ''
 		const counter = document.querySelector(".counter")
     let score = '' + this.correctAnswersCounter * 100 
     score = '0'.repeat(6 - score.length) + score
