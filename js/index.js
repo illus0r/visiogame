@@ -84,7 +84,8 @@ function Game(gameSelector) {
 				break
 
 			case 'finish': 
-				result.classList.add('visible')
+				//result.classList.add('visible')
+				 window.location.href = '/result-' + this.correctAnswersCounter * 100 + '.html'
 				break			
 		}
 	}

@@ -1,23 +1,31 @@
 ---
 ---
 
+{% assign title = "Bar or pie — проверь свою датавиз-гигиену" %}
+{% assign desc = "Короткий тест с основными принципами визуализации данных." %}
+
+{% assign score = page.path | split: "-" | last | split: "." | first | plus: 0 %}
+{% if score > 0 %}
+	{% assign title = score | append: " очков набрал в датавиз-игре" %}
+	{% assign desc = "Бар о пай — проверь свою гигиену в визуализации данных" %}
+{% endif %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Bar-or-pie</title>
-  <script src="/js/index.js"></script>
 	<link rel="stylesheet" href="https://unpkg.com/ilyabirman-likely@2/release/likely.min.css">
   <link rel="stylesheet" href='{{ "/css/main.css" | prepend: site.baseurl }}'>
 	<link rel="shortcut icon" href="/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta property="og:url" content="http://bar-or-pie.dianov.org">
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="Bar or pie — проверь свою датавиз-гигиену">
-	<meta property="og:description" content="Короткий тест с основными принципами визуализации данных.">
+	<meta property="og:title" content="{{ title }}">
+	<meta property="og:description" content="">
 	<meta property="og:image" content="http://bar-or-pie.dianov.org/img/social.jpg">
 	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:title" content="Bar or pie — проверь свою датавиз-гигиену">
+	<meta name="twitter:title" content="{{ title }}">
 	<meta name="twitter:description" content="Короткий тест с основными принципами визуализации данных.">
 	<meta name="twitter:image" content="http://bar-or-pie.dianov.org/img/social.jpg">
 	<!-- Yandex.Metrika counter -->

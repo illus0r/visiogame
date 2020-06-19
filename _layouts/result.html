@@ -1,0 +1,43 @@
+---
+layout: default
+---
+
+{% include header.html %}
+
+
+<div id="game">
+<div id="result">
+	<svg class="background" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="-81 0 1550 909">
+  <path stroke="#838383" fill="none" stroke-width="15" d="M-88.5 929.5l223-263.5 835 305 132-581.5L1491-72"/>
+</svg>
+
+<h1>Еее, <br><span class="score-text">{{ page.path | split: '-' | last | split: '.' | first }}</span> датавиз-очков!</h1>
+
+<p>Хотя количество очков не&nbsp;имеет значения: твой уровень гигиены в&nbsp;визуализации данных определенно повысился.</p>
+<p>Пошарить друзьям, коллегам, друллегам:</p>
+
+<div class="likely likely-big">
+    <div class="facebook">Share</div>
+    <div class="twitter">Tweet</div>
+    <div class="vkontakte">Share</div>
+    <div class="telegram">Send</div>
+</div>
+		
+	<button class="restart" onclick="window.location.href='/';">Еще разок →</button>
+</div>
+
+<script>
+
+	const counter = document.querySelector(".counter")
+	let score = '' + {{ page.path | split: '-' | last | split: '.' | first }} 
+	score = '0'.repeat(6 - score.length) + score
+	counter.innerHTML = score
+
+
+	document.querySelector("#game #result").classList.add('visible')
+
+</script>
+
+</div>
+
+{{ content }}
